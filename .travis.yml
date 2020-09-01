@@ -1,0 +1,16 @@
+language: php
+
+php:
+  - 7.4
+
+before_script:
+  - composer install --no-interaction
+
+script:
+  - composer run phpcs
+  - composer run phplint
+  - composer run phpmd
+  - composer run phpunit
+  - composer run phploc
+  - composer run phpstan
+  - composer run phpcpd
