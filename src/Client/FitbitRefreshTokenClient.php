@@ -24,8 +24,7 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
  */
 class FitbitRefreshTokenClient
 {
-    /** @var Fitbit */
-    private $fitbit;
+    private Fitbit $fitbit;
 
     public function __construct(Fitbit $fitbit)
     {

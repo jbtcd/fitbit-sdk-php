@@ -16,16 +16,11 @@ namespace jbtcd\Fitbit\Entity;
  */
 class AccessTokenEntity
 {
-    /** @var string */
-    private $accessToken;
-    /** @var int */
-    private $expiresIn;
-    /** @var string */
-    private $refreshToken;
-    /** @var string */
-    private $tokenType;
-    /** @var string */
-    private $userId;
+    private string $accessToken;
+    private int $expiresIn;
+    private string $refreshToken;
+    private string $tokenType;
+    private string $userId;
 
     public function getAccessToken(): string
     {
