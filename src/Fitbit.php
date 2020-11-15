@@ -17,15 +17,15 @@ namespace jbtcd\Fitbit;
 class Fitbit
 {
     /** @var string */
-    private $clientId;
+    private string $clientId;
     /** @var string */
-    private $clientSecret;
+    private string $clientSecret;
     /** @var array */
-    private $scopes;
+    private array $scopes;
     /** @var int */
-    private $expiresIn;
+    private int $expiresIn;
     /** @var string */
-    private $redirectUrl;
+    private string $redirectUrl;
 
     public function __construct(
         string $clientId,

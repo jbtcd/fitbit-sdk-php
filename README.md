@@ -9,8 +9,6 @@
 
 Fitbit provider fot authentication and data collection.
 
-Developers can register applications to use the Fitbit API at <https://dev.fitbit.com/apps>.
-
 ## Installation
 
 To install, use composer:
@@ -18,6 +16,18 @@ To install, use composer:
 ```bash
 $ composer require jbtcd/fitbit
 ```
+
+## Usage
+
+1. You must first register a Web Application on
+   [dev.fitbit.com](https://dev.fitbit.com/apps/new) to get an OAuth ID and
+   secret. Configure the application as:
+
+   - OAuth 2.0 Application Type: **Server**
+   - Callback URL: **https://app-settings.fitbitdevelopercontent.com/simple-redirect.html**
+
+2. Put your **OAuth 2.0 Client ID** and **Client Secret** into
+   the `Entity\ClientEntity.php` instance.
 
 ## Testing
 
