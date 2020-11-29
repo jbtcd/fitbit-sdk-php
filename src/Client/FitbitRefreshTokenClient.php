@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 /**
  * (c) Jonah Böther <mail@jbtcd.me>
@@ -13,12 +13,11 @@ use jbtcd\Fitbit\Config\FitbitUrlConfig;
 use jbtcd\Fitbit\Entity\AccessTokenEntity;
 use jbtcd\Fitbit\Fitbit;
 use jbtcd\Fitbit\ResponseHandler\AuthorizationRequestResponseHandler;
-use jbtcd\Fitbit\ResponseHandlerChain\ResponseHandlerChain;
 use Symfony\Component\HttpClient\CurlHttpClient;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
- * Class FitbitRefreshTokenClient
+ * Provides functionality to refresh an access token for the fitbit api
  *
  * @author Jonah Böther <mail@jbtcd.me>
  */

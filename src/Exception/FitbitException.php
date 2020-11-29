@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 /**
  * (c) Jonah Böther <mail@jbtcd.me>
@@ -12,7 +12,7 @@ namespace jbtcd\Fitbit\Exception;
 use Exception;
 
 /**
- * Class FitbitException
+ * General exception class
  *
  * @author Jonah Böther <mail@jbtcd.me>
  */

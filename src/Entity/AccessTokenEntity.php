@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 /**
  * (c) Jonah Böther <mail@jbtcd.me>
@@ -10,7 +10,7 @@
 namespace jbtcd\Fitbit\Entity;
 
 /**
- * Class AccessTokenEntity
+ * Fitbit AccessToken object
  *
  * @author Jonah Böther <mail@jbtcd.me>
  */
@@ -84,7 +84,7 @@ class AccessTokenEntity
 
     public function fromArray(array $accessTokenArray): self
     {
-        $this->setAccessToken($accessTokenArray['access_token']);
+        $this->setAccessToken($accessTokenArray['access_token'] ?? '');
         $this->setExpiresIn($accessTokenArray['expires_in']);
         $this->setRefreshToken($accessTokenArray['refresh_token']);
         $this->setTokenType($accessTokenArray['token_type']);

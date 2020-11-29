@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 /**
  * (c) Jonah Böther <mail@jbtcd.me>
@@ -10,7 +10,7 @@
 namespace jbtcd\Fitbit\Exception;
 
 /**
- * Class AuthorizationRequestErrorException
+ * Exception for authorization API request errors
  *
  * @author Jonah Böther <mail@jbtcd.me>
  */

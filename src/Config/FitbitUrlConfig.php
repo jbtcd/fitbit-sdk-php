@@ -10,7 +10,7 @@
 namespace jbtcd\Fitbit\Config;
 
 /**
- * Provides Fitbit configuration like url schemas etc
+ * Provides Fitbit url schemas
  *
  * @author Jonah Böther <mail@jbtcd.me>
  */
