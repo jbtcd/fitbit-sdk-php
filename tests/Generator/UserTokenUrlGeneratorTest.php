@@ -9,7 +9,7 @@
 
 namespace jbtcd\FitbitTest\Generator;
 
-use jbtcd\Fitbit\Fitbit;
+use jbtcd\Fitbit\FitbitConfiguration;
 use jbtcd\Fitbit\Generator\UserTokenUrlGenerator;
 use PHPUnit\Framework\TestCase;
 
@@ -34,44 +34,67 @@ class UserTokenUrlGeneratorTest extends TestCase
         return [
             [
                 // @codingStandardsIgnoreLine
-                'expectedUrl' => 'https://www.fitbit.com/oauth2/authorize?response_type=code&client_id=ABC12&redirect_uri=https://127.0.0.1:8000/r&scope=&expires_in=60',
+                'expectedUrl' => 'https://www.fitbit.com/oauth2/authorize?client_id=ABC12&response_type=code&scope=',
                 'fitbitConfigurationArray' => [
                     'clientId' => 'ABC12',
+                    'responseType' => 'code',
                     'clientSecret' => '',
                     'scopes' => [],
-                    'expiresIn' => 60,
-                    'redirectUrl' => 'https://127.0.0.1:8000/r',
                 ],
             ],
             [
                 // @codingStandardsIgnoreLine
-                'expectedUrl' => 'https://www.fitbit.com/oauth2/authorize?response_type=code&client_id=ABC12&redirect_uri=https://127.0.0.1:8000/r&scope=activity weight&expires_in=120',
+                'expectedUrl' => 'https://www.fitbit.com/oauth2/authorize?client_id=ABC12&response_type=code&scope=activity weight&redirect_uri=https://127.0.0.1:8000/r',
                 'fitbitConfigurationArray' => [
                     'clientId' => 'ABC12',
+                    'responseType' => 'code',
                     'clientSecret' => '',
                     'scopes' => [
                         'activity',
                         'weight'
                     ],
-                    'expiresIn' => 120,
                     'redirectUrl' => 'https://127.0.0.1:8000/r',
+                ],
+            ],
+            [
+                // @codingStandardsIgnoreLine
+                'expectedUrl' => 'https://www.fitbit.com/oauth2/authorize?client_id=ABC12&response_type=code&scope=activity weight&redirect_uri=https://127.0.0.1:8000/r&expires_in=86400',
+                'fitbitConfigurationArray' => [
+                    'clientId' => 'ABC12',
+                    'responseType' => 'code',
+                    'clientSecret' => '',
+                    'scopes' => [
+                        'activity',
+                        'weight'
+                    ],
+                    'redirectUrl' => 'https://127.0.0.1:8000/r',
+                    'expiresIn' => 86400,
                 ],
             ],
         ];
     }
 
-    private function getFitbitConfigurationFromArray(array $fitbitConfigurationArray): Fitbit
+    private function getFitbitConfigurationFromArray(array $fitbitConfigurationArray): FitbitConfiguration
     {
-        return new Fitbit(
+        $fitbitConfiguration = new FitbitConfiguration(
             $fitbitConfigurationArray['clientId'],
+            $fitbitConfigurationArray['responseType'],
             $fitbitConfigurationArray['clientSecret'],
-            $fitbitConfigurationArray['scopes'],
-            $fitbitConfigurationArray['expiresIn'],
-            $fitbitConfigurationArray['redirectUrl'],
+            $fitbitConfigurationArray['scopes']
         );
+
+        if (isset($fitbitConfigurationArray['expiresIn'])) {
+            $fitbitConfiguration->setExpiresIn($fitbitConfigurationArray['expiresIn']);
+        }
+
+        if (isset($fitbitConfigurationArray['redirectUrl'])) {
+            $fitbitConfiguration->setRedirectUrl($fitbitConfigurationArray['redirectUrl']);
+        }
+
+        return $fitbitConfiguration;
     }
 
-    private function getUserTokenUrlGenerator(Fitbit $fitbit): UserTokenUrlGenerator
+    private function getUserTokenUrlGenerator(FitbitConfiguration $fitbit): UserTokenUrlGenerator
     {
         return new UserTokenUrlGenerator($fitbit);
     }

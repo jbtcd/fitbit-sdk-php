@@ -11,7 +11,7 @@ namespace jbtcd\Fitbit\Generator;
 
 use jbtcd\Fitbit\Config\FitbitConfig;
 use jbtcd\Fitbit\Config\FitbitUrlConfig;
-use jbtcd\Fitbit\Fitbit;
+use jbtcd\Fitbit\FitbitConfiguration;
 
 /**
  * Provides a method to generate the url for the authorization page of Fitbit
@@ -20,22 +20,46 @@ use jbtcd\Fitbit\Fitbit;
  */
 class UserTokenUrlGenerator
 {
-    private Fitbit $fitbit;
+    private const FITBIT_AUTHORIZE_URL = 'https://www.fitbit.com/oauth2/authorize?';
+    private const PARAMETER_SCHEMA = '%s=%s&';
+
+    private FitbitConfiguration $fitbit;
+
+    private string $userTokenUrl;
 
     public function __construct(
-        Fitbit $fitbit
+        FitbitConfiguration $fitbit
     ) {
         $this->fitbit = $fitbit;
     }
 
     public function generateUserTokenUrl(): string
     {
-        return sprintf(
-            FitbitUrlConfig::FITBIT_AUTHORIZE_URL_PATTERN,
-            $this->fitbit->getClientId(),
-            $this->fitbit->getRedirectUrl(),
-            implode(' ', $this->fitbit->getScopes()),
-            $this->fitbit->getExpiresIn() ?: FitbitConfig::DAY
+        $this->userTokenUrl = self::FITBIT_AUTHORIZE_URL;
+
+        $this->addParameterToUrl('client_id', $this->fitbit->getClientId());
+        $this->addParameterToUrl('response_type', 'code');
+        $this->addParameterToUrl('scope', implode(' ', $this->fitbit->getScopes()));
+        $this->addParameterToUrl('redirect_uri', $this->fitbit->getRedirectUrl());
+        $this->addParameterToUrl('expires_in', $this->fitbit->getExpiresIn());
+        $this->addParameterToUrl('prompt', null);
+        $this->addParameterToUrl('state', null);
+        $this->addParameterToUrl('code_challenge', null);
+        $this->addParameterToUrl('code_challenge_method', null);
+
+        return rtrim($this->userTokenUrl, '&');
+    }
+
+    private function addParameterToUrl(string $parameterName, $parameterValue): void
+    {
+        if ($parameterValue === null) {
+            return;
+        }
+
+        $this->userTokenUrl .= sprintf(
+            self::PARAMETER_SCHEMA,
+            $parameterName,
+            $parameterValue
         );
     }
 }

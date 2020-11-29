@@ -18,6 +18,4 @@ interface FitbitUrlConfig
 {
     public const FITBIT_API_URL = 'https://api.fitbit.com/';
     public const FITBIT_TOKEN_REQUEST_URL = 'https://api.fitbit.com/oauth2/token';
-    // @codingStandardsIgnoreLine
-    public const FITBIT_AUTHORIZE_URL_PATTERN = 'https://www.fitbit.com/oauth2/authorize?response_type=code&client_id=%s&redirect_uri=%s&scope=%s&expires_in=%s';
 }

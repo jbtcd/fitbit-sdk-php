@@ -11,7 +11,7 @@ namespace jbtcd\Fitbit\Client;
 
 use jbtcd\Fitbit\Config\FitbitUrlConfig;
 use jbtcd\Fitbit\Entity\AccessTokenEntity;
-use jbtcd\Fitbit\Fitbit;
+use jbtcd\Fitbit\FitbitConfiguration;
 use jbtcd\Fitbit\ResponseHandler\AuthorizationRequestResponseHandler;
 use Symfony\Component\HttpClient\CurlHttpClient;
 use Symfony\Contracts\HttpClient\ResponseInterface;
@@ -23,9 +23,9 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
  */
 class FitbitRefreshTokenClient
 {
-    private Fitbit $fitbit;
+    private FitbitConfiguration $fitbit;
 
-    public function __construct(Fitbit $fitbit)
+    public function __construct(FitbitConfiguration $fitbit)
     {
         $this->fitbit = $fitbit;
     }
