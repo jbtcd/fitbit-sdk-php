@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 /**
  * (c) Jonah Böther <mail@jbtcd.me>
@@ -7,23 +7,24 @@
  * file that was distributed with this source code.
  */
 
-namespace jbtcd\Fitbit\Client;
+namespace jbtcd\Fitbit\Generator;
 
 use jbtcd\Fitbit\Config\FitbitConfig;
 use jbtcd\Fitbit\Config\FitbitUrlConfig;
 use jbtcd\Fitbit\Fitbit;
 
 /**
- * Class FitbitUrlHelperClient
+ * Provides a method to generate the url for the authorization page of Fitbit
  *
  * @author Jonah Böther <mail@jbtcd.me>
  */
-class FitbitUrlHelperClient
+class UserTokenUrlGenerator
 {
     private Fitbit $fitbit;
 
-    public function __construct(Fitbit $fitbit)
-    {
+    public function __construct(
+        Fitbit $fitbit
+    ) {
         $this->fitbit = $fitbit;
     }
 
