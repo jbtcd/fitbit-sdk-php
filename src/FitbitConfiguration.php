@@ -77,7 +77,7 @@ class FitbitConfiguration
         return $this->redirectUrl;
     }
 
-    public function setRedirectUrl(?string $redirectUrl): self
+    public function setRedirectUrl(string $redirectUrl): self
     {
         $this->redirectUrl = $redirectUrl;
 
@@ -89,7 +89,7 @@ class FitbitConfiguration
         return $this->prompt;
     }
 
-    public function setPrompt(?string $prompt): self
+    public function setPrompt(string $prompt): self
     {
         $this->prompt = $prompt;
 
@@ -101,7 +101,7 @@ class FitbitConfiguration
         return $this->state;
     }
 
-    public function setState(?string $state): self
+    public function setState(string $state): self
     {
         $this->state = $state;
 
@@ -113,7 +113,7 @@ class FitbitConfiguration
         return $this->codeChallenge;
     }
 
-    public function setCodeChallenge(?string $codeChallenge): self
+    public function setCodeChallenge(string $codeChallenge): self
     {
         $this->codeChallenge = $codeChallenge;
 
@@ -125,7 +125,7 @@ class FitbitConfiguration
         return $this->codeChallengeMethod;
     }
 
-    public function setCodeChallengeMethod(?string $codeChallengeMethod): self
+    public function setCodeChallengeMethod(string $codeChallengeMethod): self
     {
         $this->codeChallengeMethod = $codeChallengeMethod;
 
