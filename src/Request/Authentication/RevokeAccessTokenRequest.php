@@ -31,7 +31,7 @@ class RevokeAccessTokenRequest
         $this->authorizationStringGenerator = $authorizationStringGenerator;
     }
 
-    public function fetchCurrentStatusOfToken(AccessTokenEntity $accessTokenEntity): void
+    public function revokeAccessToken(AccessTokenEntity $accessTokenEntity): void
     {
         $curlHttpClient = new CurlHttpClient([
             'http_version' => '2.0',
