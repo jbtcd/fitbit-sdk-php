@@ -9,14 +9,12 @@
 
 namespace jbtcd\Fitbit\Exception;
 
-use Exception;
-
 /**
- * General fitbit exception
+ * AccessToken expired exception
  *
  * @author Jonah Böther <mail@jbtcd.me>
  */
-class FitbitException extends Exception
+class AccessTokenExpiredException extends FitbitException
 {
 
 }
