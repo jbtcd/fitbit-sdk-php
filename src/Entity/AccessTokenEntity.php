@@ -14,7 +14,7 @@ namespace jbtcd\Fitbit\Entity;
  *
  * @author Jonah Böther <mail@jbtcd.me>
  */
-class AccessTokenEntity
+class AccessTokenEntity implements AccessTokenEntityInterface
 {
     private string $accessToken;
     private int $expiresIn;
@@ -92,4 +92,5 @@ class AccessTokenEntity
 
         return $this;
     }
+
 }

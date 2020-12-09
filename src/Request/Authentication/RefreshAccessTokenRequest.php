@@ -9,7 +9,7 @@
 
 namespace jbtcd\Fitbit\Request\Authentication;
 
-use jbtcd\Fitbit\Entity\AccessTokenEntity;
+use jbtcd\Fitbit\Entity\AccessTokenEntityInterface;
 use jbtcd\Fitbit\Exception\FitbitException;
 use jbtcd\Fitbit\FitbitConfiguration;
 use jbtcd\Fitbit\Generator\AuthorizationStringGenerator;
@@ -35,7 +35,7 @@ class RefreshAccessTokenRequest
         $this->fitbitConfiguration = $fitbitConfiguration;
     }
 
-    public function refreshAccessToken(AccessTokenEntity $oldAccessToken): AccessTokenEntity
+    public function refreshAccessToken(AccessTokenEntityInterface $accessTokenEntity): AccessTokenEntityInterface
     {
         $curlHttpClient = new CurlHttpClient([
             'http_version' => '2.0',
@@ -49,7 +49,7 @@ class RefreshAccessTokenRequest
             'body' => [
                 'clientId' => $this->fitbitConfiguration->getClientId(),
                 'grant_type' => 'refresh_token',
-                'refresh_token' => $oldAccessToken->getRefreshToken(),
+                'refresh_token' => $accessTokenEntity->getRefreshToken(),
             ],
         ]);
 
@@ -57,6 +57,6 @@ class RefreshAccessTokenRequest
             throw new FitbitException();
         }
 
-        return (new AccessTokenEntity())->fromArray($response->toArray());
+        return $accessTokenEntity->fromArray($response->toArray());
     }
 }

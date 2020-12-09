@@ -9,7 +9,7 @@
 
 namespace jbtcd\Fitbit\Client;
 
-use jbtcd\Fitbit\Entity\AccessTokenEntity;
+use jbtcd\Fitbit\Entity\AccessTokenEntityInterface;
 use jbtcd\Fitbit\Request\Authentication\FetchAccessTokenRequest;
 
 /**
@@ -27,7 +27,7 @@ class InitialFitbitAccessTokenRequestClient
         $this->fetchAccessTokenRequest = $fetchAccessTokenRequest;
     }
 
-    public function fetchAccessTokenByCode(string $code): AccessTokenEntity
+    public function fetchAccessTokenByCode(string $code): AccessTokenEntityInterface
     {
         return $this->fetchAccessTokenRequest->fetchAccessToken($code);
     }

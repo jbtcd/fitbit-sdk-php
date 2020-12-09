@@ -9,7 +9,7 @@
 
 namespace jbtcd\Fitbit\Request\Authentication;
 
-use jbtcd\Fitbit\Entity\AccessTokenEntity;
+use jbtcd\Fitbit\Entity\AccessTokenEntityInterface;
 use jbtcd\Fitbit\Exception\FitbitException;
 use jbtcd\Fitbit\Generator\AuthorizationStringGenerator;
 use Symfony\Component\HttpClient\CurlHttpClient;
@@ -31,7 +31,7 @@ class RevokeAccessTokenRequest
         $this->authorizationStringGenerator = $authorizationStringGenerator;
     }
 
-    public function revokeAccessToken(AccessTokenEntity $accessTokenEntity): void
+    public function revokeAccessToken(AccessTokenEntityInterface $accessTokenEntity): void
     {
         $curlHttpClient = new CurlHttpClient([
             'http_version' => '2.0',

@@ -9,7 +9,7 @@
 
 namespace jbtcd\Fitbit\Client;
 
-use jbtcd\Fitbit\Entity\AccessTokenEntity;
+use jbtcd\Fitbit\Entity\AccessTokenEntityInterface;
 use jbtcd\Fitbit\Request\Authentication\RevokeAccessTokenRequest;
 
 /**
@@ -27,7 +27,7 @@ class RevokeAccessTokenClient
         $this->revokeAccessTokenRequest = $revokeAccessTokenRequest;
     }
 
-    public function revokeAccessToken(AccessTokenEntity $accessTokenEntity): void
+    public function revokeAccessToken(AccessTokenEntityInterface $accessTokenEntity): void
     {
         $this->revokeAccessTokenRequest->revokeAccessToken($accessTokenEntity);
     }

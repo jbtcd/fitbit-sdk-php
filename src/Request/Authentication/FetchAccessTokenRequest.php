@@ -9,7 +9,7 @@
 
 namespace jbtcd\Fitbit\Request\Authentication;
 
-use jbtcd\Fitbit\Entity\AccessTokenEntity;
+use jbtcd\Fitbit\Entity\AccessTokenEntityInterface;
 use jbtcd\Fitbit\Exception\FitbitException;
 use jbtcd\Fitbit\FitbitConfiguration;
 use jbtcd\Fitbit\Generator\AuthorizationStringGenerator;
@@ -35,7 +35,7 @@ class FetchAccessTokenRequest
         $this->fitbitConfiguration = $fitbitConfiguration;
     }
 
-    public function fetchAccessToken(string $code): AccessTokenEntity
+    public function fetchAccessToken(string $code): AccessTokenEntityInterface
     {
         $curlHttpClient = new CurlHttpClient([
             'http_version' => '2.0',
@@ -58,6 +58,10 @@ class FetchAccessTokenRequest
             throw new FitbitException();
         }
 
-        return (new AccessTokenEntity())->fromArray($response->toArray());
+        $accessTokenEntityClassName = $this->fitbitConfiguration->getAccessTokenEntityClass();
+        /** @var AccessTokenEntityInterface $class */
+        $accessTokenEntity = new $accessTokenEntityClassName();
+
+        return $accessTokenEntity->fromArray($response->toArray());
     }
 }

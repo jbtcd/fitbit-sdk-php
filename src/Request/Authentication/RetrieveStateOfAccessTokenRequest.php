@@ -9,10 +9,9 @@
 
 namespace jbtcd\Fitbit\Request\Authentication;
 
-use jbtcd\Fitbit\Entity\AccessTokenEntity;
+use jbtcd\Fitbit\Entity\AccessTokenEntityInterface;
 use jbtcd\Fitbit\Exception\FitbitException;
 use Symfony\Component\HttpClient\CurlHttpClient;
-use function PHPStan\dumpType;
 
 /**
  * Get current state of AccessToken
@@ -23,7 +22,7 @@ class RetrieveStateOfAccessTokenRequest
 {
     private const FITBIT_INTROSPECT_URL = 'https://api.fitbit.com/1.1/oauth2/introspect';
 
-    public function fetchCurrentStatusOfToken(AccessTokenEntity $accessTokenEntity): bool
+    public function fetchCurrentStatusOfToken(AccessTokenEntityInterface $accessTokenEntity): bool
     {
         $curlHttpClient = new CurlHttpClient([
             'http_version' => '2.0',

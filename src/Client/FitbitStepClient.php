@@ -2,7 +2,7 @@
 
 namespace jbtcd\Fitbit\Client;
 
-use jbtcd\Fitbit\Entity\AccessTokenEntity;
+use jbtcd\Fitbit\Entity\AccessTokenEntityInterface;
 use jbtcd\Fitbit\Request\Activity\GetActivityTimeSeriesRequest;
 use jbtcd\Fitbit\Request\Authentication\RefreshAccessTokenRequest;
 use jbtcd\Fitbit\Request\Authentication\RetrieveStateOfAccessTokenRequest;
@@ -13,7 +13,7 @@ class FitbitStepClient
     private RetrieveStateOfAccessTokenRequest $retrieveStateOfAccessTokenRequest;
     private GetActivityTimeSeriesRequest $getActivityTimeSeriesRequest;
 
-    private AccessTokenEntity $accessTokenEntity;
+    private AccessTokenEntityInterface $accessTokenEntity;
 
     public function __construct(
         RefreshAccessTokenRequest $refreshAccessTokenRequest,
@@ -46,7 +46,7 @@ class FitbitStepClient
         return $this->count($data);
     }
 
-    public function setAccessTokenEntity(AccessTokenEntity $accessTokenEntity): void
+    public function setAccessTokenEntity(AccessTokenEntityInterface $accessTokenEntity): void
     {
         $this->accessTokenEntity = $accessTokenEntity;
     }

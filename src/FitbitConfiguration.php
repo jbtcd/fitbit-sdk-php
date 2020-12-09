@@ -9,6 +9,8 @@
 
 namespace jbtcd\Fitbit;
 
+use jbtcd\Fitbit\Entity\AccessTokenEntity;
+
 /**
  * Provides the user configuration
  *
@@ -27,6 +29,7 @@ class FitbitConfiguration
     private ?string $state = null;
     private ?string $codeChallenge = null;
     private ?string $codeChallengeMethod = null;
+    private string $accessTokenEntityClass = AccessTokenEntity::class;
 
     public function __construct(
         string $clientId,
@@ -128,6 +131,18 @@ class FitbitConfiguration
     public function setCodeChallengeMethod(?string $codeChallengeMethod): self
     {
         $this->codeChallengeMethod = $codeChallengeMethod;
+
+        return $this;
+    }
+
+    public function getAccessTokenEntityClass(): string
+    {
+        return $this->accessTokenEntityClass;
+    }
+
+    public function setAccessTokenEntityClass(string $accessTokenEntityClass): self
+    {
+        $this->accessTokenEntityClass = $accessTokenEntityClass;
 
         return $this;
     }

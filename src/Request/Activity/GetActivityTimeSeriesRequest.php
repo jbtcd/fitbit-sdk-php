@@ -9,7 +9,7 @@
 
 namespace jbtcd\Fitbit\Request\Activity;
 
-use jbtcd\Fitbit\Entity\AccessTokenEntity;
+use jbtcd\Fitbit\Entity\AccessTokenEntityInterface;
 use jbtcd\Fitbit\Exception\AccessTokenExpiredException;
 use jbtcd\Fitbit\Exception\FitbitException;
 use Symfony\Component\HttpClient\CurlHttpClient;
@@ -23,9 +23,9 @@ class GetActivityTimeSeriesRequest
 
     private const FITBIT_GET_ACTIVITY_TIME_SERIES_URL_SCHEMA = 'https://api.fitbit.com/1/user/%s/%s/date/%s/%s.json';
 
-    private AccessTokenEntity $accessTokenEntity;
+    private AccessTokenEntityInterface $accessTokenEntity;
 
-    public function setAccessTokenEntity(AccessTokenEntity $accessTokenEntity): void
+    public function setAccessTokenEntity(AccessTokenEntityInterface $accessTokenEntity): void
     {
         $this->accessTokenEntity = $accessTokenEntity;
     }
