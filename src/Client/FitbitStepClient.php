@@ -2,6 +2,7 @@
 
 namespace jbtcd\Fitbit\Client;
 
+use DateTime;
 use jbtcd\Fitbit\Entity\AccessTokenEntityInterface;
 use jbtcd\Fitbit\Request\Activity\GetActivityTimeSeriesRequest;
 use jbtcd\Fitbit\Request\Authentication\RefreshAccessTokenRequest;
@@ -25,14 +26,14 @@ class FitbitStepClient
         $this->getActivityTimeSeriesRequest = $getActivityTimeSeriesRequest;
     }
 
-    public function fetchStepCountByTimeSeries(\DateTime $startTime, ?\DateTime $endDate = null): int
+    public function fetchStepCountByTimeSeries(DateTime $startTime, ?DateTime $endDate = null): int
     {
         if ($this->retrieveStateOfAccessTokenRequest->fetchCurrentStatusOfToken($this->accessTokenEntity) === false) {
             $this->accessTokenEntity = $this->refreshAccessTokenRequest->refreshAccessToken($this->accessTokenEntity);
         }
 
         if ($endDate === null) {
-            $endDate = new \DateTime('today');
+            $endDate = new DateTime('today');
         }
 
         $this->getActivityTimeSeriesRequest->setAccessTokenEntity($this->accessTokenEntity);

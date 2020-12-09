@@ -59,7 +59,7 @@ class FetchAccessTokenRequest
         }
 
         $accessTokenEntityClassName = $this->fitbitConfiguration->getAccessTokenEntityClass();
-        /** @var AccessTokenEntityInterface $class */
+        /** @var AccessTokenEntityInterface $accessTokenEntity */
         $accessTokenEntity = new $accessTokenEntityClassName();
 
         return $accessTokenEntity->fromArray($response->toArray());
