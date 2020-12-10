@@ -47,7 +47,7 @@ class RefreshAccessTokenRequest
                 'Authorization' => $this->authorizationStringGenerator->getAuthorizationString(),
             ],
             'body' => [
-                'clientId' => $this->fitbitConfiguration->getClientId(),
+                'expiresIn' => $this->fitbitConfiguration->getExpiresIn(),
                 'grant_type' => 'refresh_token',
                 'refresh_token' => $accessTokenEntity->getRefreshToken(),
             ],

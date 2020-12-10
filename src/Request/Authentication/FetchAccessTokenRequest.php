@@ -51,6 +51,7 @@ class FetchAccessTokenRequest
                 'grant_type' => 'authorization_code',
                 'redirect_uri' => $this->fitbitConfiguration->getRedirectUrl(),
                 'code' => $code,
+                'expiresIn' => $this->fitbitConfiguration->getExpiresIn(),
             ],
         ]);
 
