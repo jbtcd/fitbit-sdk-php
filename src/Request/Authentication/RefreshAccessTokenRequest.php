@@ -13,6 +13,7 @@ use jbtcd\Fitbit\Entity\AccessTokenEntityInterface;
 use jbtcd\Fitbit\Exception\FitbitException;
 use jbtcd\Fitbit\FitbitConfiguration;
 use jbtcd\Fitbit\Generator\AuthorizationStringGenerator;
+use jbtcd\Fitbit\Logger\DebugStack;
 use Symfony\Component\HttpClient\CurlHttpClient;
 
 /**
@@ -26,17 +27,22 @@ class RefreshAccessTokenRequest
 
     private AuthorizationStringGenerator $authorizationStringGenerator;
     private FitbitConfiguration $fitbitConfiguration;
+    private DebugStack $debugStack;
 
     public function __construct(
         AuthorizationStringGenerator $authorizationStringGenerator,
-        FitbitConfiguration $fitbitConfiguration
+        FitbitConfiguration $fitbitConfiguration,
+        DebugStack $debugStack
     ) {
         $this->authorizationStringGenerator = $authorizationStringGenerator;
         $this->fitbitConfiguration = $fitbitConfiguration;
+        $this->debugStack = $debugStack;
     }
 
     public function refreshAccessToken(AccessTokenEntityInterface $accessTokenEntity): AccessTokenEntityInterface
     {
+        $this->debugStack->startCall(self::FITBIT_ACCESS_TOKEN_REQUEST_URL);
+
         $curlHttpClient = new CurlHttpClient([
             'http_version' => '2.0',
         ]);
@@ -52,6 +58,8 @@ class RefreshAccessTokenRequest
                 'refresh_token' => $accessTokenEntity->getRefreshToken(),
             ],
         ]);
+
+        $this->debugStack->endCall();
 
         if ($response->getStatusCode() !== 200) {
             throw new FitbitException();

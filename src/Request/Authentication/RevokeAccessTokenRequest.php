@@ -12,6 +12,7 @@ namespace jbtcd\Fitbit\Request\Authentication;
 use jbtcd\Fitbit\Entity\AccessTokenEntityInterface;
 use jbtcd\Fitbit\Exception\FitbitException;
 use jbtcd\Fitbit\Generator\AuthorizationStringGenerator;
+use jbtcd\Fitbit\Logger\DebugStack;
 use Symfony\Component\HttpClient\CurlHttpClient;
 
 /**
@@ -24,15 +25,20 @@ class RevokeAccessTokenRequest
     private const FITBIT_REVOKE_URL = 'https://api.fitbit.com/oauth2/revoke';
 
     private AuthorizationStringGenerator $authorizationStringGenerator;
+    private DebugStack $debugStack;
 
     public function __construct(
-        AuthorizationStringGenerator $authorizationStringGenerator
+        AuthorizationStringGenerator $authorizationStringGenerator,
+        DebugStack $debugStack
     ) {
         $this->authorizationStringGenerator = $authorizationStringGenerator;
+        $this->debugStack = $debugStack;
     }
 
     public function revokeAccessToken(AccessTokenEntityInterface $accessTokenEntity): void
     {
+        $this->debugStack->startCall(self::FITBIT_REVOKE_URL);
+
         $curlHttpClient = new CurlHttpClient([
             'http_version' => '2.0',
         ]);
@@ -46,6 +52,8 @@ class RevokeAccessTokenRequest
                 'token' => $accessTokenEntity->getAccessToken(),
             ],
         ]);
+
+        $this->debugStack->endCall();
 
         if ($response->getStatusCode() !== 200) {
             throw new FitbitException();

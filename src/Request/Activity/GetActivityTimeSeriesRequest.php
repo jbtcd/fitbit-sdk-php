@@ -12,6 +12,7 @@ namespace jbtcd\Fitbit\Request\Activity;
 use jbtcd\Fitbit\Entity\AccessTokenEntityInterface;
 use jbtcd\Fitbit\Exception\AccessTokenExpiredException;
 use jbtcd\Fitbit\Exception\FitbitException;
+use jbtcd\Fitbit\Logger\DebugStack;
 use Symfony\Component\HttpClient\CurlHttpClient;
 
 /**
@@ -24,10 +25,12 @@ class GetActivityTimeSeriesRequest
     private const FITBIT_GET_ACTIVITY_TIME_SERIES_URL_SCHEMA = 'https://api.fitbit.com/1/user/%s/%s/date/%s/%s.json';
 
     private AccessTokenEntityInterface $accessTokenEntity;
+    private DebugStack $debugStack;
 
-    public function setAccessTokenEntity(AccessTokenEntityInterface $accessTokenEntity): void
+    public function setAccessTokenEntity(AccessTokenEntityInterface $accessTokenEntity, DebugStack $debugStack): void
     {
         $this->accessTokenEntity = $accessTokenEntity;
+        $this->debugStack = $debugStack;
     }
 
     public function fetchData(string $resource, \DateTime $startDate, \DateTime $endDate): array
@@ -45,6 +48,8 @@ class GetActivityTimeSeriesRequest
 
     private function request(string $url): array
     {
+        $this->debugStack->startCall($url);
+
         $curlHttpClient = new CurlHttpClient([
             'http_version' => '2.0',
         ]);
@@ -55,6 +60,8 @@ class GetActivityTimeSeriesRequest
                 'Authorization' => 'Bearer ' . $this->accessTokenEntity->getAccessToken(),
             ],
         ]);
+
+        $this->debugStack->endCall();
 
         if ($response->getStatusCode() === 401) {
             throw new AccessTokenExpiredException();
