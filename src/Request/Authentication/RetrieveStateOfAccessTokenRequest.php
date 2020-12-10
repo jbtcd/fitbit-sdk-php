@@ -38,12 +38,10 @@ class RetrieveStateOfAccessTokenRequest
             ],
         ]);
 
-        if ($response->getStatusCode() !== 200) {
-            throw new FitbitException();
+        if ($response->getStatusCode() === 200) {
+            return true;
         }
 
-        $responseContent = $response->toArray(false);
-
-        return $responseContent['active'];
+        return false;
     }
 }
