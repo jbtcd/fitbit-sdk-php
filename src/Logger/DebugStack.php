@@ -15,6 +15,8 @@ class DebugStack
             return;
         }
 
+        $this->start = microtime(true);
+
         $this->calls[++$this->currentCall] = [
             'url' => $url,
             'executionMS' => 0,
