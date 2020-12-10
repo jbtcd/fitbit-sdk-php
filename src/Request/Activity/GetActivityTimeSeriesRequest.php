@@ -27,10 +27,14 @@ class GetActivityTimeSeriesRequest
     private AccessTokenEntityInterface $accessTokenEntity;
     private DebugStack $debugStack;
 
-    public function setAccessTokenEntity(AccessTokenEntityInterface $accessTokenEntity, DebugStack $debugStack): void
+    public function __construct(DebugStack $debugStack)
+    {
+        $this->debugStack = $debugStack;
+    }
+
+    public function setAccessTokenEntity(AccessTokenEntityInterface $accessTokenEntity): void
     {
         $this->accessTokenEntity = $accessTokenEntity;
-        $this->debugStack = $debugStack;
     }
 
     public function fetchData(string $resource, \DateTime $startDate, \DateTime $endDate): array
