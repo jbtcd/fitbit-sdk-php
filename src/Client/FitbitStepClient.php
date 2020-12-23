@@ -47,6 +47,27 @@ class FitbitStepClient
         return $this->count($data);
     }
 
+    public function fetchAverage(DateTime $startDateTime, ?DateTime $endDateTime): float
+    {
+        if ($this->retrieveStateOfAccessTokenRequest->fetchCurrentStatusOfToken($this->accessTokenEntity) === false) {
+            $this->accessTokenEntity = $this->refreshAccessTokenRequest->refreshAccessToken($this->accessTokenEntity);
+        }
+
+        if ($endDateTime === null) {
+            $endDateTime = new DateTime('today');
+        }
+
+        $this->getActivityTimeSeriesRequest->setAccessTokenEntity($this->accessTokenEntity);
+
+        $data = $this->getActivityTimeSeriesRequest->fetchData(
+            GetActivityTimeSeriesRequest::FITBIT_ACTIVITY_STEPS,
+            $startDateTime,
+            $endDateTime
+        );
+
+        return $this->average($data);
+    }
+
     public function setAccessTokenEntity(AccessTokenEntityInterface $accessTokenEntity): void
     {
         $this->accessTokenEntity = $accessTokenEntity;
@@ -61,5 +82,18 @@ class FitbitStepClient
         }
 
         return $count;
+    }
+
+    private function average(array $dataSeries): float
+    {
+        $count = 0;
+
+        $dataSets = count($dataSeries);
+
+        foreach ($dataSeries['activities-steps'] as $data) {
+            $count += $data['value'];
+        }
+
+        return $count / $dataSets;
     }
 }
