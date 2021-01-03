@@ -26,6 +26,25 @@ class FitbitStepClient
         $this->getActivityTimeSeriesRequest = $getActivityTimeSeriesRequest;
     }
 
+    public function fetchStepsByDate(DateTime $startDateTime, ?DateTime $endDateTime): array
+    {
+        if ($this->retrieveStateOfAccessTokenRequest->fetchCurrentStatusOfToken($this->accessTokenEntity) === false) {
+            $this->accessTokenEntity = $this->refreshAccessTokenRequest->refreshAccessToken($this->accessTokenEntity);
+        }
+
+        if ($endDateTime === null) {
+            $endDateTime = new DateTime('today');
+        }
+
+        $this->getActivityTimeSeriesRequest->setAccessTokenEntity($this->accessTokenEntity);
+
+        return $this->getActivityTimeSeriesRequest->fetchData(
+            GetActivityTimeSeriesRequest::FITBIT_ACTIVITY_STEPS,
+            $startDateTime,
+            $endDateTime
+        );
+    }
+
     public function fetchStepCountByTimeSeries(DateTime $startTime, ?DateTime $endDate = null): int
     {
         if ($this->retrieveStateOfAccessTokenRequest->fetchCurrentStatusOfToken($this->accessTokenEntity) === false) {
