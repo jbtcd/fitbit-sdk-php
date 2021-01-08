@@ -107,7 +107,7 @@ class FitbitStepClient
     {
         $count = 0;
 
-        $dataSets = count($dataSeries['activities-steps'] );
+        $dataSets = count($dataSeries['activities-steps']);
 
         foreach ($dataSeries['activities-steps'] as $data) {
             $count += $data['value'];
