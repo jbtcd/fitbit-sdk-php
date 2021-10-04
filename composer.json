@@ -3,7 +3,7 @@
     "description": "Fitbit provider fot authentication and data collection.",
     "type": "library",
     "require": {
-        "php": "^7.4",
+        "php": "^7.4 || ^8.0",
         "ext-json": "*",
         "symfony/http-client": "^5.0 || ^4.4"
     },
