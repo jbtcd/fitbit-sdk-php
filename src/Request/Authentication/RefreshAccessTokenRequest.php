@@ -11,7 +11,7 @@ namespace jbtcd\Fitbit\Request\Authentication;
 
 use jbtcd\Fitbit\Entity\AccessTokenEntityInterface;
 use jbtcd\Fitbit\Exception\FitbitException;
-use jbtcd\Fitbit\FitbitConfiguration;
+use jbtcd\Fitbit\Configuration\FitbitConfiguration;
 use jbtcd\Fitbit\Generator\AuthorizationStringGenerator;
 use jbtcd\Fitbit\Logger\DebugStack;
 use Symfony\Component\HttpClient\CurlHttpClient;

@@ -9,7 +9,7 @@
 
 namespace jbtcd\Fitbit\Generator;
 
-use jbtcd\Fitbit\FitbitConfiguration;
+use jbtcd\Fitbit\Configuration\FitbitConfiguration;
 
 /**
  * Generates a base64 encoded authorization string

@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 
-namespace jbtcd\Fitbit;
+namespace jbtcd\Fitbit\Configuration;
 
 use jbtcd\Fitbit\Entity\AccessTokenEntity;
 

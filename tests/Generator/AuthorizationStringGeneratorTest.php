@@ -9,7 +9,7 @@
 
 namespace jbtcd\FitbitTest\Generator;
 
-use jbtcd\Fitbit\FitbitConfiguration;
+use jbtcd\Fitbit\Configuration\FitbitConfiguration;
 use jbtcd\Fitbit\Generator\AuthorizationStringGenerator;
 use PHPUnit\Framework\TestCase;
 

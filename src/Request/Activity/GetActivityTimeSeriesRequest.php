@@ -13,7 +13,9 @@ use jbtcd\Fitbit\Entity\AccessTokenEntityInterface;
 use jbtcd\Fitbit\Exception\AccessTokenExpiredException;
 use jbtcd\Fitbit\Exception\FitbitException;
 use jbtcd\Fitbit\Logger\DebugStack;
+use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 use Symfony\Component\HttpClient\CurlHttpClient;
+use Symfony\Contracts\Cache\ItemInterface;
 
 /**
  * Fetch activity data of a specific time range
@@ -54,16 +56,22 @@ class GetActivityTimeSeriesRequest
     {
         $this->debugStack->startCall($url);
 
-        $curlHttpClient = new CurlHttpClient([
-            'http_version' => '2.0',
-        ]);
+        $cache = new FilesystemAdapter();
 
-        $response = $curlHttpClient->request('GET', $url, [
-            'headers' => [
-                'Content-Type' => 'application/x-www-form-urlencoded',
-                'Authorization' => 'Bearer ' . $this->accessTokenEntity->getAccessToken(),
-            ],
-        ]);
+        $response = $cache->get(self::class, function (ItemInterface $item) use ($url) {
+            $item->expiresAfter(10);
+
+            $curlHttpClient = new CurlHttpClient([
+                'http_version' => '2.0',
+            ]);
+
+            return $curlHttpClient->request('GET', $url, [
+                'headers' => [
+                    'Content-Type' => 'application/x-www-form-urlencoded',
+                    'Authorization' => 'Bearer ' . $this->accessTokenEntity->getAccessToken(),
+                ],
+            ]);
+        });
 
         $this->debugStack->endCall();
 

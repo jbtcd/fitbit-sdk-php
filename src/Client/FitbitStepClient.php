@@ -3,6 +3,7 @@
 namespace jbtcd\Fitbit\Client;
 
 use DateTime;
+use jbtcd\Fitbit\Configuration\FitbitConstants;
 use jbtcd\Fitbit\Entity\AccessTokenEntityInterface;
 use jbtcd\Fitbit\Request\Activity\GetActivityTimeSeriesRequest;
 use jbtcd\Fitbit\Request\Authentication\RefreshAccessTokenRequest;
@@ -96,7 +97,7 @@ class FitbitStepClient
     {
         $count = 0;
 
-        foreach ($dataSeries['activities-steps'] as $data) {
+        foreach ($dataSeries[FitbitConstants::ACTIVITIES_STEPS] as $data) {
             $count += $data['value'];
         }
 
@@ -107,9 +108,9 @@ class FitbitStepClient
     {
         $count = 0;
 
-        $dataSets = count($dataSeries['activities-steps']);
+        $dataSets = count($dataSeries[FitbitConstants::ACTIVITIES_STEPS]);
 
-        foreach ($dataSeries['activities-steps'] as $data) {
+        foreach ($dataSeries[FitbitConstants::ACTIVITIES_STEPS] as $data) {
             $count += $data['value'];
         }
 

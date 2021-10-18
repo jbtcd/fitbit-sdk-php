@@ -5,7 +5,8 @@
     "require": {
         "php": "^7.4 || ^8.0",
         "ext-json": "*",
-        "symfony/http-client": "^5.0 || ^4.4"
+        "symfony/http-client": "^5.0 || ^4.4",
+        "symfony/cache": "^5.3"
     },
     "license": "MIT",
     "keywords": [

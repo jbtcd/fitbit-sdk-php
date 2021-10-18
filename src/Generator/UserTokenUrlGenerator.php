@@ -9,9 +9,7 @@
 
 namespace jbtcd\Fitbit\Generator;
 
-use jbtcd\Fitbit\Config\FitbitConfig;
-use jbtcd\Fitbit\Config\FitbitUrlConfig;
-use jbtcd\Fitbit\FitbitConfiguration;
+use jbtcd\Fitbit\Configuration\FitbitConfiguration;
 
 /**
  * Provides a method to generate the url for the authorization page of Fitbit
